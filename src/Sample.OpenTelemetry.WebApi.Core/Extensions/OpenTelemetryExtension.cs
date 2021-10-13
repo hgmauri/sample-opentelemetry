@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Sample.OpenTelemetry.WebApi.Core.Configuration;
+using Sample.OpenTelemetry.WebApi.Core.Configurations;
 
 namespace Sample.OpenTelemetry.WebApi.Core.Extensions
 {
@@ -13,7 +13,7 @@ namespace Sample.OpenTelemetry.WebApi.Core.Extensions
             {
                 var resourceBuilder = ResourceBuilder
                     .CreateDefault()
-                    .AddService(appSettings.DistributedTracing.Jaeger.ServiceName);
+                    .AddService(appSettings?.DistributedTracing?.Jaeger?.ServiceName);
 
                 telemetry
                     .SetResourceBuilder(resourceBuilder)
@@ -22,8 +22,8 @@ namespace Sample.OpenTelemetry.WebApi.Core.Extensions
                     .SetSampler(new AlwaysOnSampler())
                     .AddJaegerExporter(jaegerOptions =>
                     {
-                        jaegerOptions.AgentHost = appSettings.DistributedTracing.Jaeger.Host;
-                        jaegerOptions.AgentPort = appSettings.DistributedTracing.Jaeger.Port;
+                        jaegerOptions.AgentHost = appSettings?.DistributedTracing?.Jaeger?.Host;
+                        jaegerOptions.AgentPort = appSettings?.DistributedTracing?.Jaeger?.Port ?? 0;
                     });
             });
         }

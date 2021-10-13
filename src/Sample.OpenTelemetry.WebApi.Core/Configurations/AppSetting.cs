@@ -1,4 +1,4 @@
-﻿namespace Sample.OpenTelemetry.WebApi.Core.Configuration
+﻿namespace Sample.OpenTelemetry.WebApi.Core.Configurations
 {
     public class AppSettings
     {
