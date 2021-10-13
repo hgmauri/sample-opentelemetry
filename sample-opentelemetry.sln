@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.OpenTelemetry.WebApi", "src\Sample.OpenTelemetry.WebApi\Sample.OpenTelemetry.WebApi.csproj", "{02751A37-5E80-44F5-8DDD-2B378A84E8B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.OpenTelemetry.WebApi.Core", "src\Sample.OpenTelemetry.WebApi.Core\Sample.OpenTelemetry.WebApi.Core.csproj", "{00679C38-8593-41AD-9DDF-D53AE6A87A8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{391E0590-748F-4FD3-B16B-AA964EA2F08B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{98F93CD4-D337-481B-92B6-AD81659D1BC0}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02751A37-5E80-44F5-8DDD-2B378A84E8B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02751A37-5E80-44F5-8DDD-2B378A84E8B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02751A37-5E80-44F5-8DDD-2B378A84E8B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02751A37-5E80-44F5-8DDD-2B378A84E8B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00679C38-8593-41AD-9DDF-D53AE6A87A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00679C38-8593-41AD-9DDF-D53AE6A87A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00679C38-8593-41AD-9DDF-D53AE6A87A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00679C38-8593-41AD-9DDF-D53AE6A87A8B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02751A37-5E80-44F5-8DDD-2B378A84E8B3} = {391E0590-748F-4FD3-B16B-AA964EA2F08B}
+		{00679C38-8593-41AD-9DDF-D53AE6A87A8B} = {391E0590-748F-4FD3-B16B-AA964EA2F08B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B902F11-9861-4529-ABC3-311B1025EB8A}
+	EndGlobalSection
+EndGlobal
