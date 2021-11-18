@@ -1,5 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Sample.OpenTelemetry.WebApi.Core.ViewModels;
 
 namespace Sample.OpenTelemetry.WebApi.Controllers
@@ -8,11 +13,6 @@ namespace Sample.OpenTelemetry.WebApi.Controllers
     [Route("[controller]")]
     public class LogsController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<LogsController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
 
@@ -20,18 +20,6 @@ namespace Sample.OpenTelemetry.WebApi.Controllers
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
-        }
-
-        [HttpGet]
-        public IEnumerable<object> Get()
-        {
-            return Enumerable.Range(1, 5).Select(index => new
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
         }
 
         [HttpGet("cidades")]
