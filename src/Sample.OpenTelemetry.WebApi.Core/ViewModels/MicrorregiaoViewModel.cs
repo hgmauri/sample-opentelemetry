@@ -1,7 +1,6 @@
-﻿namespace Sample.OpenTelemetry.WebApi.Core.ViewModels
+﻿namespace Sample.OpenTelemetry.WebApi.Core.ViewModels;
+
+public class MicrorregiaoViewModel
 {
-    public class MicrorregiaoViewModel
-    {
-        public MesorregiaoViewModel? Mesorregiao { get; set; }
-    }
+	public MesorregiaoViewModel Mesorregiao { get; set; }
 }

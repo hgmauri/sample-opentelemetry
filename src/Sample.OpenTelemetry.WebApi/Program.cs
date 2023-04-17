@@ -1,33 +1,42 @@
 using Sample.OpenTelemetry.WebApi.Core.Configurations;
 using Sample.OpenTelemetry.WebApi.Core.Extensions;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
-
-var appSettings = new AppSettings();
-builder.Configuration.Bind(appSettings);
-
-builder.Services.AddControllers();
-builder.Services.AddRouting(options => options.LowercaseUrls = true);
-
-builder.Services.AddSwaggerGen(c =>
+try
 {
-    c.SwaggerDoc("v1", new() { Title = appSettings?.DistributedTracing?.Jaeger?.ServiceName, Version = "v1" });
-});
+	var builder = WebApplication.CreateBuilder(args);
+	builder.AddSerilog("Sample Jaeger");
 
-builder.Services.AddOpenTelemetry(appSettings);
-builder.Services.AddHttpClient("google");
+	var appSettings = new AppSettings();
+	builder.Configuration.Bind(appSettings);
 
-var app = builder.Build();
+	builder.Services.AddRouting(options => options.LowercaseUrls = true);
+	builder.Services.AddControllers();
+	builder.Services.AddEndpointsApiExplorer();
+	builder.Services.AddSwaggerGen();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{appSettings?.DistributedTracing?.Jaeger?.ServiceName} v1"));
+	builder.Services.AddOpenTelemetry(appSettings);
+	builder.Services.AddHttpClient("google");
+
+	var app = builder.Build();
+
+	if (app.Environment.IsDevelopment())
+	{
+		app.UseSwagger();
+		app.UseSwaggerUI();
+	}
+
+	app.UseAuthorization();
+	app.MapControllers();
+
+	await app.RunAsync();
 }
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+catch (Exception ex)
+{
+	Log.Fatal(ex, "Host terminated unexpectedly");
+}
+finally
+{
+	Log.Information("Server Shutting down...");
+	Log.CloseAndFlush();
+}
