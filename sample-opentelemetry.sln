@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{98F93C
 		docker-compose.yaml = docker-compose.yaml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.OpenTelemetry.Infrastructure", "src\Sample.OpenTelemetry.Persistence\Sample.OpenTelemetry.Infrastructure.csproj", "{E0F2A6DD-BA33-404F-9E90-4B7EB05A3F4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{00679C38-8593-41AD-9DDF-D53AE6A87A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00679C38-8593-41AD-9DDF-D53AE6A87A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00679C38-8593-41AD-9DDF-D53AE6A87A8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0F2A6DD-BA33-404F-9E90-4B7EB05A3F4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0F2A6DD-BA33-404F-9E90-4B7EB05A3F4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0F2A6DD-BA33-404F-9E90-4B7EB05A3F4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0F2A6DD-BA33-404F-9E90-4B7EB05A3F4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -35,6 +41,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{02751A37-5E80-44F5-8DDD-2B378A84E8B3} = {391E0590-748F-4FD3-B16B-AA964EA2F08B}
 		{00679C38-8593-41AD-9DDF-D53AE6A87A8B} = {391E0590-748F-4FD3-B16B-AA964EA2F08B}
+		{E0F2A6DD-BA33-404F-9E90-4B7EB05A3F4C} = {391E0590-748F-4FD3-B16B-AA964EA2F08B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4B902F11-9861-4529-ABC3-311B1025EB8A}

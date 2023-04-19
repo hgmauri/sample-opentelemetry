@@ -3,6 +3,9 @@ version: '3.4'
 services:
   jaeger: 
         image: jaegertracing/all-in-one:latest
+        environment:
+          - COLLECTOR_OTLP_ENABLED=true
+          - LOG_LEVEL=debug
         ports:
           - "5775:5775/udp"
           - "6831:6831/udp"
@@ -11,3 +14,9 @@ services:
           - "16686:16686"
           - "14268:14268"
           - "9411:9411"
+
+  rabbitmq:
+    image: masstransit/rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672

@@ -1,4 +1,4 @@
-﻿namespace Sample.OpenTelemetry.WebApi.Core.ViewModels;
+﻿namespace Sample.OpenTelemetry.Infrastructure.ViewModels;
 
 public class UfViewModel
 {

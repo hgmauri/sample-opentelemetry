@@ -1,42 +1,30 @@
+using Microsoft.EntityFrameworkCore;
+using Sample.OpenTelemetry.Infrastructure;
+using Sample.OpenTelemetry.Infrastructure.Context;
 using Sample.OpenTelemetry.WebApi.Core.Configurations;
 using Sample.OpenTelemetry.WebApi.Core.Extensions;
-using Serilog;
 
-try
-{
-	var builder = WebApplication.CreateBuilder(args);
-	builder.AddSerilog("Sample Jaeger");
+var builder = WebApplication.CreateBuilder(args);
+var appSettings = new AppSettings();
+builder.Configuration.Bind(appSettings);
 
-	var appSettings = new AppSettings();
-	builder.Configuration.Bind(appSettings);
+builder.AddOpenTelemetry(appSettings);
 
-	builder.Services.AddRouting(options => options.LowercaseUrls = true);
-	builder.Services.AddControllers();
-	builder.Services.AddEndpointsApiExplorer();
-	builder.Services.AddSwaggerGen();
+builder.Services.AddApiConfiguration();
 
-	builder.Services.AddOpenTelemetry(appSettings);
-	builder.Services.AddHttpClient("google");
+builder.Services.AddDbContext<ClientContext>(opt =>
+	opt.UseSqlServer(builder.Configuration.GetConnectionString("ClientContext")));
+builder.Services.AddAutoMapper(typeof(MapperProfile));
+builder.Services.AddMassTransitExtension(builder.Configuration);
 
-	var app = builder.Build();
+builder.Services.AddHttpClient("google");
 
-	if (app.Environment.IsDevelopment())
-	{
-		app.UseSwagger();
-		app.UseSwaggerUI();
-	}
+var app = builder.Build();
 
-	app.UseAuthorization();
-	app.MapControllers();
+app.UseApiConfiguration();
 
-	await app.RunAsync();
-}
-catch (Exception ex)
-{
-	Log.Fatal(ex, "Host terminated unexpectedly");
-}
-finally
-{
-	Log.Information("Server Shutting down...");
-	Log.CloseAndFlush();
-}
+using var scope = app.Services.CreateScope();
+var dbContext = scope.ServiceProvider.GetRequiredService<ClientContext>();
+dbContext.Database.Migrate();
+
+await app.RunAsync();
