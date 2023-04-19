@@ -1,16 +1,15 @@
 ﻿using MassTransit;
-using Microsoft.Extensions.Logging;
 using Sample.OpenTelemetry.Infrastructure.Context;
 using Sample.OpenTelemetry.Infrastructure.ViewModels;
 
-namespace Sample.OpenTelemetry.Infrastructure.Consumers;
+namespace Sample.OpenTelemetry.Worker.Consumers;
 
-public class ClientConsumer : IConsumer<ClientViewModel>
+public class ClientUpdateConsumer : IConsumer<ClientViewModel>
 {
 	private readonly ClientContext _context;
-	private readonly ILogger<ClientConsumer> _logger;
+	private readonly ILogger<ClientUpdateConsumer> _logger;
 
-	public ClientConsumer(ClientContext context, ILogger<ClientConsumer> logger)
+	public ClientUpdateConsumer(ClientContext context, ILogger<ClientUpdateConsumer> logger)
 	{
 		_context = context;
 		_logger = logger;
@@ -31,9 +30,9 @@ public class ClientConsumer : IConsumer<ClientViewModel>
 	}
 }
 
-public class ClientConsumerDefinition : ConsumerDefinition<ClientConsumer>
+public class ClientUpdateConsumerDefinition : ConsumerDefinition<ClientUpdateConsumer>
 {
-	protected override void ConfigureConsumer(IReceiveEndpointConfigurator endpointConfigurator, IConsumerConfigurator<ClientConsumer> consumerConfigurator)
+	protected override void ConfigureConsumer(IReceiveEndpointConfigurator endpointConfigurator, IConsumerConfigurator<ClientUpdateConsumer> consumerConfigurator)
 	{
 		consumerConfigurator.UseMessageRetry(retry => retry.Interval(3, TimeSpan.FromSeconds(3)));
 	}

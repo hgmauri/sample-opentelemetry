@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Sample.OpenTelemetry.Worker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
+    }
+  }
+}

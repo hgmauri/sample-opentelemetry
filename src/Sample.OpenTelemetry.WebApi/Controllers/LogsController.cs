@@ -15,14 +15,14 @@ namespace Sample.OpenTelemetry.WebApi.Controllers;
 public class LogsController : ControllerBase
 {
 	private readonly IMapper _mapper;
-	private readonly IHttpClientFactory _httpClientFactory;
+	private readonly HttpClient _httpClient;
 	private readonly IPublishEndpoint _publishEndpoint;
 	private readonly ILogger<LogsController> _logger;
 	private readonly ClientContext _context;
 
-	public LogsController(IHttpClientFactory httpClientFactory, ClientContext context, IMapper mapper, IPublishEndpoint publishEndpoint, ILogger<LogsController> logger)
+	public LogsController(HttpClient httpClient, ClientContext context, IMapper mapper, IPublishEndpoint publishEndpoint, ILogger<LogsController> logger)
 	{
-		_httpClientFactory = httpClientFactory;
+		_httpClient = httpClient;
 		_context = context;
 		_mapper = mapper;
 		_publishEndpoint = publishEndpoint;
@@ -32,10 +32,9 @@ public class LogsController : ControllerBase
 	[HttpGet("cidades")]
 	public async Task<IEnumerable<CidadeViewModel>?> GetCitiesAsync()
 	{
-		using var activity = OpenTelemetryExtension.ActivitySource.StartActivity("CheckCache");
+		using var activity = OpenTelemetryExtension.ActivitySource.StartActivity("HttpClient");
 		IList<CidadeViewModel>? cidades = null;
-		var client = _httpClientFactory.CreateClient("google");
-		var response = await client.GetAsync("https://servicodados.ibge.gov.br/api/v1/localidades/estados/SP/municipios");
+		var response = await _httpClient.GetAsync("https://servicodados.ibge.gov.br/api/v1/localidades/estados/SP/municipios");
 
 		if (response.IsSuccessStatusCode)
 		{
@@ -48,9 +47,9 @@ public class LogsController : ControllerBase
 	}
 
 	[HttpGet("thread")]
-	public IActionResult GetThreadAsync()
+	public async Task<IActionResult> GetThreadAsync()
 	{
-		Task.Delay(3000);
+		await Task.Delay(3000);
 		return Ok();
 	}
 
