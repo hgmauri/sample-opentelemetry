@@ -3,7 +3,6 @@ using AutoMapper;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Sample.OpenTelemetry.Infrastructure.Consumers;
 using Sample.OpenTelemetry.Infrastructure.Context;
 using Sample.OpenTelemetry.Infrastructure.ViewModels;
 using Sample.OpenTelemetry.WebApi.Core.Extensions;
@@ -15,10 +14,10 @@ namespace Sample.OpenTelemetry.WebApi.Controllers;
 public class LogsController : ControllerBase
 {
 	private readonly IMapper _mapper;
-	private readonly HttpClient _httpClient;
 	private readonly IPublishEndpoint _publishEndpoint;
 	private readonly ILogger<LogsController> _logger;
 	private readonly ClientContext _context;
+	private readonly HttpClient _httpClient;
 
 	public LogsController(HttpClient httpClient, ClientContext context, IMapper mapper, IPublishEndpoint publishEndpoint, ILogger<LogsController> logger)
 	{
